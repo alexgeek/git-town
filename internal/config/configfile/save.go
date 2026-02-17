@@ -141,10 +141,18 @@ func RenderTOML(data configdomain.PartialConfig) string {
 		// keep-sorted end
 	}
 
+	proposeNoWeb, hasProposeNoWeb := data.ProposeNoWeb.Get()
 	proposalBreadcrumb, hasProposalBreadcrumb := data.ProposalBreadcrumb.Get()
-	if hasProposalBreadcrumb {
+	if cmp.Or(hasProposeNoWeb, hasProposalBreadcrumb) {
 		result.WriteString("\n[propose]\n")
-		result.WriteString(fmt.Sprintf("breadcrumb = %q\n", proposalBreadcrumb))
+		// keep-sorted start block=yes
+		if hasProposalBreadcrumb {
+			result.WriteString(fmt.Sprintf("breadcrumb = %q\n", proposalBreadcrumb))
+		}
+		if hasProposeNoWeb {
+			result.WriteString(fmt.Sprintf("no-web = %t\n", proposeNoWeb))
+		}
+		// keep-sorted end
 	}
 
 	deleteTrackingBranch, hasDeleteTrackingBranch := data.ShipDeleteTrackingBranch.Get()

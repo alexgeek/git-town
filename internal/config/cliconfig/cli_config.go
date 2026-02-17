@@ -54,6 +54,7 @@ func New(args NewArgs) configdomain.PartialConfig {
 		Order:                       args.Order,
 		PerennialBranches:           gitdomain.LocalBranchNames{},
 		PerennialRegex:              None[configdomain.PerennialRegex](),
+		ProposeNoWeb:                None[configdomain.ProposeNoWeb](),
 		ProposalBreadcrumb:          None[configdomain.ProposalBreadcrumb](),
 		ProposalBreadcrumbDirection: None[configdomain.ProposalBreadcrumbDirection](),
 		ProposalBreadcrumbStyle:     None[configdomain.ProposalBreadcrumbStyle](),

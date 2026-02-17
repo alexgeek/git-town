@@ -17,6 +17,7 @@ type ProposalCreate struct {
 }
 
 func (self *ProposalCreate) Run(args shared.RunArgs) error {
+	noWeb := args.Config.Value.NormalConfig.ProposeNoWeb
 	parentBranch, hasParentBranch := args.Config.Value.NormalConfig.Lineage.Parent(self.Branch).Get()
 	if !hasParentBranch {
 		args.FinalMessages.Addf(messages.ProposalNoParent, self.Branch)
@@ -33,11 +34,13 @@ func (self *ProposalCreate) Run(args shared.RunArgs) error {
 			goto createProposal
 		}
 		if existingProposal, hasExistingProposal := existingProposalOpt.Get(); hasExistingProposal {
-			args.PrependOpcodes(
-				&BrowserOpen{
-					URL: existingProposal.Data.Data().URL,
-				},
-			)
+			if !noWeb {
+				args.PrependOpcodes(
+					&BrowserOpen{
+						URL: existingProposal.Data.Data().URL,
+					},
+				)
+			}
 			return nil
 		}
 	}
@@ -48,6 +51,7 @@ createProposal:
 		Branch:         self.Branch,
 		FrontendRunner: args.Frontend,
 		MainBranch:     self.MainBranch,
+		NoWeb:          bool(noWeb),
 		ParentBranch:   parentBranch,
 		ProposalBody:   self.ProposalBody,
 		ProposalTitle:  self.ProposalTitle,

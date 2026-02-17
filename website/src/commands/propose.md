@@ -3,7 +3,7 @@
 <a type="git-town-command" />
 
 ```command-summary
-git town propose [--(no)-auto-resolve] [(-b | --body) <text>] [(-f | --body-file) <path>] [--dry-run] [-h | --help] [-s | --stack] [(-t | --title) <text>] [-v | --verbose]
+git town propose [--(no)-auto-resolve] [(-b | --body) <text>] [(-f | --body-file) <path>] [--dry-run] [-h | --help] [--no-web] [-s | --stack] [(-t | --title) <text>] [-v | --verbose]
 ```
 
 The _propose_ command helps create a new pull request (also known as merge
@@ -50,6 +50,14 @@ that would be run but doesn't execute them.
 #### `-h`<br>`--help`
 
 Display help for this command.
+
+#### `--no-web`
+
+When called with the `--no-web` flag, the _propose_ command does not open a
+browser after creating the proposal. For CLI-based connectors (`gh`, `glab`),
+the proposal is still created but the browser is not opened. You can also set
+this permanently via the
+[propose.no-web](../preferences/propose-no-web.md) setting.
 
 #### `-s`<br>`--stack`
 

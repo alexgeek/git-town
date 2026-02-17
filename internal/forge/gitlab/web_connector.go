@@ -28,8 +28,10 @@ func (self WebConnector) BrowseRepository(runner subshelldomain.Runner) error {
 }
 
 func (self WebConnector) CreateProposal(data forgedomain.CreateProposalArgs) error {
-	url := self.NewProposalURL(data)
-	browser.Open(url, data.FrontendRunner, self.browser)
+	if !data.NoWeb {
+		url := self.NewProposalURL(data)
+		browser.Open(url, data.FrontendRunner, self.browser)
+	}
 	return nil
 }
 

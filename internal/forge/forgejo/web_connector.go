@@ -28,7 +28,9 @@ func (self WebConnector) BrowseRepository(runner subshelldomain.Runner) error {
 }
 
 func (self WebConnector) CreateProposal(data forgedomain.CreateProposalArgs) error {
-	browser.Open(self.NewProposalURL(data), data.FrontendRunner, self.browser)
+	if !data.NoWeb {
+		browser.Open(self.NewProposalURL(data), data.FrontendRunner, self.browser)
+	}
 	return nil
 }
 

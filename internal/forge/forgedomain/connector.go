@@ -25,6 +25,7 @@ type CreateProposalArgs struct {
 	Branch         gitdomain.LocalBranchName
 	FrontendRunner subshelldomain.Runner
 	MainBranch     gitdomain.LocalBranchName
+	NoWeb          bool
 	ParentBranch   gitdomain.LocalBranchName
 	ProposalBody   Option[gitdomain.ProposalBody]
 	ProposalTitle  Option[gitdomain.ProposalTitle]

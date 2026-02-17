@@ -67,6 +67,7 @@ func Validate(data Data, finalMessages stringslice.Collector) (configdomain.Part
 		order                       Option[configdomain.Order]
 		perennialBranches           gitdomain.LocalBranchNames
 		perennialRegex              Option[configdomain.PerennialRegex]
+		proposeNoWeb                Option[configdomain.ProposeNoWeb]
 		proposalBreadcrumb          Option[configdomain.ProposalBreadcrumb]
 		proposalBreadcrumbDirection Option[configdomain.ProposalBreadcrumbDirection]
 		proposalBreadcrumbStyle     Option[configdomain.ProposalBreadcrumbStyle]
@@ -224,6 +225,9 @@ func Validate(data Data, finalMessages stringslice.Collector) (configdomain.Part
 			proposalBreadcrumbDirection, err = configdomain.ParseProposalBreadcrumbDirection(*data.Propose.Direction, messages.ConfigFile)
 			ec.Check(err)
 		}
+		if data.Propose.NoWeb != nil {
+			proposeNoWeb = Some(configdomain.ProposeNoWeb(*data.Propose.NoWeb))
+		}
 		if data.Propose.Style != nil {
 			proposalBreadcrumbStyle, err = configdomain.ParseProposalBreadcrumbStyle(*data.Propose.Style, messages.ConfigFile)
 			ec.Check(err)
@@ -323,6 +327,7 @@ func Validate(data Data, finalMessages stringslice.Collector) (configdomain.Part
 		Order:                       order,
 		PerennialBranches:           perennialBranches,
 		PerennialRegex:              perennialRegex,
+		ProposeNoWeb:                proposeNoWeb,
 		ProposalBreadcrumb:          proposalBreadcrumb,
 		ProposalBreadcrumbDirection: proposalBreadcrumbDirection,
 		ProposalBreadcrumbStyle:     proposalBreadcrumbStyle,

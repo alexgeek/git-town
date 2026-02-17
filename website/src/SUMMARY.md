@@ -90,6 +90,7 @@
     - [GitLab connector](preferences/gitlab-connector.md)
     - [GitLab token](preferences/gitlab-token.md)
   - [Propose]()
+    - [No web](preferences/propose-no-web.md)
     - [Proposal breadcrumb](preferences/proposal-breadcrumb.md)
   - [Ship]()
     - [Delete tracking branch](preferences/ship-delete-tracking-branch.md)

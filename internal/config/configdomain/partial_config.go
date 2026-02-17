@@ -49,6 +49,7 @@ type PartialConfig struct {
 	Order                       Option[Order]
 	PerennialBranches           gitdomain.LocalBranchNames
 	PerennialRegex              Option[PerennialRegex]
+	ProposeNoWeb                Option[ProposeNoWeb]
 	ProposalBreadcrumb          Option[ProposalBreadcrumb]
 	ProposalBreadcrumbDirection Option[ProposalBreadcrumbDirection]
 	ProposalBreadcrumbStyle     Option[ProposalBreadcrumbStyle]
@@ -111,6 +112,7 @@ func (self PartialConfig) Merge(other PartialConfig) PartialConfig {
 		Order:                       other.Order.Or(self.Order),
 		PerennialBranches:           append(other.PerennialBranches, self.PerennialBranches...),
 		PerennialRegex:              other.PerennialRegex.Or(self.PerennialRegex),
+		ProposeNoWeb:                other.ProposeNoWeb.Or(self.ProposeNoWeb),
 		ProposalBreadcrumb:          other.ProposalBreadcrumb.Or(self.ProposalBreadcrumb),
 		ProposalBreadcrumbDirection: other.ProposalBreadcrumbDirection.Or(self.ProposalBreadcrumbDirection),
 		ProposalBreadcrumbStyle:     other.ProposalBreadcrumbStyle.Or(self.ProposalBreadcrumbStyle),

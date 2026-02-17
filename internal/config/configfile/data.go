@@ -61,6 +61,7 @@ type Propose struct {
 	Breadcrumb *string `toml:"breadcrumb"`
 	Direction  *string `toml:"direction"`
 	Lineage    *string `toml:"lineage"`
+	NoWeb      *bool   `toml:"no-web"`
 	Style      *string `toml:"style"`
 }
 

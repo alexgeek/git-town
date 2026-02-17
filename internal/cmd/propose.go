@@ -59,6 +59,7 @@ func proposeCommand() *cobra.Command {
 	addBodyFlag, readBodyFlag := flags.ProposalBody("b")
 	addBodyFileFlag, readBodyFileFlag := flags.ProposalBodyFile()
 	addDryRunFlag, readDryRunFlag := flags.DryRun()
+	addNoWebFlag, readNoWebFlag := flags.ProposeNoWeb()
 	addStackFlag, readStackFlag := flags.Stack("propose the entire stack")
 	addTitleFlag, readTitleFlag := flags.ProposalTitle()
 	addVerboseFlag, readVerboseFlag := flags.Verbose()
@@ -73,10 +74,11 @@ func proposeCommand() *cobra.Command {
 			bodyFile, errBodyFile := readBodyFileFlag(cmd)
 			bodyText, errBodyText := readBodyFlag(cmd)
 			dryRun, errDryRun := readDryRunFlag(cmd)
+			noWeb, errNoWeb := readNoWebFlag(cmd)
 			stack, errStack := readStackFlag(cmd)
 			title, errTitle := readTitleFlag(cmd)
 			verbose, errVerbose := readVerboseFlag(cmd)
-			if err := cmp.Or(errBodyFile, errBodyText, errDryRun, errAutoResolve, errStack, errTitle, errVerbose); err != nil {
+			if err := cmp.Or(errBodyFile, errBodyText, errDryRun, errNoWeb, errAutoResolve, errStack, errTitle, errVerbose); err != nil {
 				return err
 			}
 			cliConfig := cliconfig.New(cliconfig.NewArgs{
@@ -91,6 +93,7 @@ func proposeCommand() *cobra.Command {
 				Stash:             None[configdomain.Stash](),
 				Verbose:           verbose,
 			})
+			cliConfig.ProposeNoWeb = noWeb
 			return executePropose(proposeArgs{
 				body:      bodyText,
 				bodyFile:  bodyFile,
@@ -104,6 +107,7 @@ func proposeCommand() *cobra.Command {
 	addBodyFileFlag(&cmd)
 	addDryRunFlag(&cmd)
 	addAutoResolveFlag(&cmd)
+	addNoWebFlag(&cmd)
 	addStackFlag(&cmd)
 	addTitleFlag(&cmd)
 	addVerboseFlag(&cmd)

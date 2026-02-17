@@ -61,6 +61,7 @@ type NormalConfig struct {
 	Order                       configdomain.Order
 	PerennialBranches           gitdomain.LocalBranchNames
 	PerennialRegex              Option[configdomain.PerennialRegex]
+	ProposeNoWeb                configdomain.ProposeNoWeb
 	ProposalBreadcrumb          configdomain.ProposalBreadcrumb
 	ProposalBreadcrumbDirection configdomain.ProposalBreadcrumbDirection
 	ProposalBreadcrumbStyle     configdomain.ProposalBreadcrumbStyle
@@ -132,6 +133,7 @@ func (self *NormalConfig) OverwriteWith(other configdomain.PartialConfig) Normal
 		Order:                       other.Order.GetOr(self.Order),
 		PerennialBranches:           other.PerennialBranches.AppendAllMissing(self.PerennialBranches),
 		PerennialRegex:              other.PerennialRegex.Or(self.PerennialRegex),
+		ProposeNoWeb:                other.ProposeNoWeb.GetOr(self.ProposeNoWeb),
 		ProposalBreadcrumb:          other.ProposalBreadcrumb.GetOr(self.ProposalBreadcrumb),
 		ProposalBreadcrumbDirection: other.ProposalBreadcrumbDirection.GetOr(self.ProposalBreadcrumbDirection),
 		ProposalBreadcrumbStyle:     other.ProposalBreadcrumbStyle.GetOr(self.ProposalBreadcrumbStyle),
@@ -289,6 +291,7 @@ func DefaultNormalConfig() NormalConfig {
 		Order:                       configdomain.OrderAsc,
 		PerennialBranches:           gitdomain.LocalBranchNames{},
 		PerennialRegex:              None[configdomain.PerennialRegex](),
+		ProposeNoWeb:                false,
 		ProposalBreadcrumb:          configdomain.ProposalBreadcrumbNone,
 		ProposalBreadcrumbDirection: configdomain.ProposalBreadcrumbDirectionDown,
 		ProposalBreadcrumbStyle:     configdomain.ProposalBreadcrumbStyleTree,
@@ -348,6 +351,7 @@ func NewNormalConfigFromPartial(partial configdomain.PartialConfig, defaults Nor
 		Order:                       partial.Order.GetOr(defaults.Order),
 		PerennialBranches:           partial.PerennialBranches,
 		PerennialRegex:              partial.PerennialRegex,
+		ProposeNoWeb:                partial.ProposeNoWeb.GetOr(defaults.ProposeNoWeb),
 		ProposalBreadcrumb:          partial.ProposalBreadcrumb.GetOr(defaults.ProposalBreadcrumb),
 		ProposalBreadcrumbDirection: proposalBreadcrumbDirection,
 		ProposalBreadcrumbStyle:     proposalBreadcrumbStyle,

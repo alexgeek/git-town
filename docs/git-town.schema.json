@@ -149,6 +149,9 @@
         "lineage": {
           "type": "string"
         },
+        "no-web": {
+          "type": "boolean"
+        },
         "style": {
           "type": "string"
         }
